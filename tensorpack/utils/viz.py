@@ -379,39 +379,40 @@ def draw_text(img, pos, text, color, font_scale=0.4):
     return img
 
 
-def draw_boxes(im, boxes, labels=None, color=None):
+def draw_boxes(im, pts, labels=None, color=None):
     """
     Args:
         im (np.ndarray): a BGR image in range [0,255]. It will not be modified.
-        boxes (np.ndarray): a numpy array of shape Nx4 where each row is [x1, y1, x2, y2].
+        pts (np.ndarray): a numpy array of shape Nx4x2 where N is number of object, the next two dimensions are the 4 points.
         labels: (list[str] or None)
         color: a 3-tuple BGR color (in range [0, 255])
 
     Returns:
         np.ndarray: a new image.
     """
-    boxes = np.asarray(boxes, dtype='int32')
-    if labels is not None:
-        assert len(labels) == len(boxes), "{} != {}".format(len(labels), len(boxes))
-    areas = (boxes[:, 2] - boxes[:, 0] + 1) * (boxes[:, 3] - boxes[:, 1] + 1)
-    sorted_inds = np.argsort(-areas)    # draw large ones first
-    assert areas.min() > 0, areas.min()
+    pts = np.asarray(pts, dtype='int32')
+#     if labels is not None:
+#         assert len(labels) == len(boxes), "{} != {}".format(len(labels), len(boxes))
+#     areas = (boxes[:, 2] - boxes[:, 0] + 1) * (boxes[:, 3] - boxes[:, 1] + 1)
+#     sorted_inds = np.argsort(-areas)    # draw large ones first
+#     assert areas.min() > 0, areas.min()
     # allow equal, because we are not very strict about rounding error here
-    assert boxes[:, 0].min() >= 0 and boxes[:, 1].min() >= 0 \
-        and boxes[:, 2].max() <= im.shape[1] and boxes[:, 3].max() <= im.shape[0], \
-        "Image shape: {}\n Boxes:\n{}".format(str(im.shape), str(boxes))
+#     assert boxes[:, 0].min() >= 0 and boxes[:, 1].min() >= 0 \
+#         and boxes[:, 2].max() <= im.shape[1] and boxes[:, 3].max() <= im.shape[0], \
+#         "Image shape: {}\n Boxes:\n{}".format(str(im.shape), str(boxes))
 
     im = im.copy()
     if color is None:
         color = (15, 128, 15)
     if im.ndim == 2 or (im.ndim == 3 and im.shape[2] == 1):
         im = cv2.cvtColor(im, cv2.COLOR_GRAY2BGR)
-    for i in sorted_inds:
-        box = boxes[i, :]
-        if labels is not None:
-            im = draw_text(im, (box[0], box[1]), labels[i], color=color)
-        cv2.rectangle(im, (box[0], box[1]), (box[2], box[3]),
-                      color=color, thickness=1)
+#     for i in sorted_inds:
+#         box = boxes[i, :]
+    if labels is not None:
+        im = draw_text(im, (pts[0]), labels[0], color=color)
+    pts = pts.reshape((-1,1,2))
+    im = cv2.polylines(im, [pts], True, color=color, thickness=1) 
+
     return im
 
 
