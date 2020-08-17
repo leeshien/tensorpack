@@ -96,10 +96,10 @@ class TrainingDataPreprocessor:
         # augmentation:
         tfms = self.aug.get_transform(im)
         im = tfms.apply_image(im)
-        points = box_to_point4(boxes)
-        print('data.py points: ', points.shape)
-        points = tfms.apply_coords(points)
-        boxes = point4_to_box(points)
+#         points = box_to_point4(boxes)
+#         print('data.py points: ', points.shape)
+        boxes = tfms.apply_coords(boxes)
+#         boxes = point4_to_box(points)
         print(' AFTER data.py boxes.shape: ', boxes.shape)
         if len(boxes):
             assert klass.max() <= self.cfg.DATA.NUM_CATEGORY, \
