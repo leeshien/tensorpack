@@ -79,7 +79,8 @@ class TrainingDataPreprocessor:
 
     def __call__(self, roidb):
         fname, boxes, klass, is_crowd = roidb["file_name"], roidb["boxes"], roidb["class"], roidb["is_crowd"]
-        assert boxes.ndim == 2 and boxes.shape[1] == 4, boxes.shape
+        print('data.py boxes.shape: ', boxes.shape)
+#         assert boxes.ndim == 2 and boxes.shape[1] == 4, boxes.shape
         boxes = np.copy(boxes)
         im = cv2.imread(fname, cv2.IMREAD_COLOR)
         assert im is not None, fname
