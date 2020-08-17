@@ -119,5 +119,8 @@ class DatasetRegistry():
             value
         """
         print('========== get_metadata ============')
-        print('DatasetRegistry._metadata_registry: ', DatasetRegistry._metadata_registry.items())
+        for k,v in DatasetRegistry._metadata_registry.items():
+            print(' ', type(k), type(v))
+            print(' ', k,v)
+#         print('DatasetRegistry._metadata_registry: ', DatasetRegistry._metadata_registry.items())
         return DatasetRegistry._metadata_registry[name][key]
