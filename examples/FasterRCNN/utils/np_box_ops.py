@@ -22,6 +22,11 @@ Example box operations that are supported:
 import numpy as np
 
 
+def PolyArea(boxes):
+    x = np.asarray([coord[0] for coord in boxes])
+    y = np.asarray([coord[1] for coord in boxes])
+    return 0.5*np.abs(np.dot(x,np.roll(y,1))-np.dot(y,np.roll(x,1)))
+ 
 def area(boxes):
   """Computes area of boxes.
 
