@@ -100,6 +100,7 @@ class TrainingDataPreprocessor:
         print('data.py points: ', points.shape)
         points = tfms.apply_coords(points)
         boxes = point4_to_box(points)
+        print(' AFTER data.py boxes.shape: ', boxes.shape)
         if len(boxes):
             assert klass.max() <= self.cfg.DATA.NUM_CATEGORY, \
                 "Invalid category {}!".format(klass.max())
