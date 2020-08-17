@@ -114,8 +114,12 @@ class DatasetRegistry():
         Args:
             name (str): the name of the dataset split, e.g. "coco_train2017"
             key: the key of the metadata, e.g., "class_names"
-
         Returns:
             value
         """
+        print('========== get_metadata ============')
+        for k,v in DatasetRegistry._metadata_registry.items():
+            print(' ', type(k), type(v))
+            print(' ', k,v)
+#         print('DatasetRegistry._metadata_registry: ', DatasetRegistry._metadata_registry.items())
         return DatasetRegistry._metadata_registry[name][key]
