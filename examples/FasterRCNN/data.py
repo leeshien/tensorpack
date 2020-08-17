@@ -97,6 +97,7 @@ class TrainingDataPreprocessor:
         tfms = self.aug.get_transform(im)
         im = tfms.apply_image(im)
         points = box_to_point4(boxes)
+        print('data.py points: ', points.shape)
         points = tfms.apply_coords(points)
         boxes = point4_to_box(points)
         if len(boxes):
