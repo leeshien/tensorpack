@@ -248,6 +248,7 @@ def finalize_configs(is_training):
     # finalize dataset definitions ...
     from dataset import DatasetRegistry
     datasets = list(_C.DATA.TRAIN) + list(_C.DATA.VAL)
+    print('CONFIG datasets: ', datasets)
     _C.DATA.CLASS_NAMES = DatasetRegistry.get_metadata(datasets[0], "class_names")
     _C.DATA.NUM_CATEGORY = len(_C.DATA.CLASS_NAMES) - 1
 
