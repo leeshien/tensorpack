@@ -23,7 +23,7 @@ from common import (
 )
 from config import config as cfg
 from dataset import DatasetRegistry, register_coco
-from utils.np_box_ops import area as np_area
+from utils.np_box_ops import PolyArea as np_area
 from utils.np_box_ops import ioa as np_ioa
 
 # import tensorpack.utils.viz as tpviz
