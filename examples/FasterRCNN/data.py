@@ -345,16 +345,16 @@ def get_train_dataflow():
 
     # Filter out images that have no gt boxes, but this filter shall not be applied for testing.
     # The model does support training with empty images, but it is not useful for COCO.
-    num = len(roidbs)
-    print(' data.py roidbs: ', np.asarray(roidbs).shape, np.asarray(roidbs[0]).shape, np.asarray(roidbs[1]).shape)
-    if cfg.DATA.FILTER_EMPTY_ANNOTATIONS:
-        roidbs = list(filter(lambda img: len(img["boxes"][img["is_crowd"] == 0]) > 0, roidbs))
-        print(' data.py roidbs B: ', np.asarray(roidbs).shape, np.asarray(roidbs[0]).shape, np.asarray(roidbs[1]).shape)
-    logger.info(
-        "Filtered {} images which contain no non-crowd groudtruth boxes. Total #images for training: {}".format(
-            num - len(roidbs), len(roidbs)
-        )
-    )
+#     num = len(roidbs)
+#     print(' data.py roidbs: ', np.asarray(roidbs).shape, np.asarray(roidbs[0]).shape, np.asarray(roidbs[1]).shape)
+#     if cfg.DATA.FILTER_EMPTY_ANNOTATIONS:
+#         roidbs = list(filter(lambda img: len(img["boxes"][img["is_crowd"] == 0]) > 0, roidbs))
+#         print(' data.py roidbs B: ', np.asarray(roidbs).shape, np.asarray(roidbs[0]).shape, np.asarray(roidbs[1]).shape)
+#     logger.info(
+#         "Filtered {} images which contain no non-crowd groudtruth boxes. Total #images for training: {}".format(
+#             num - len(roidbs), len(roidbs)
+#         )
+#     )
 
     ds = DataFromList(roidbs, shuffle=True)
 
