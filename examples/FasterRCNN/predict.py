@@ -156,6 +156,8 @@ if __name__ == '__main__':
         if args.predict:
             predictor = OfflinePredictor(predcfg)
             outpath = args.output_inference
+            if not os.path.exists(outpath):
+                os.makedirs(outpath)            
             files = [f for f in os.listdir(args.predict[0]) if os.path.isfile(os.path.join(args.predict[0], f))]
             imgfiles = [f for f in files if f.endswith('.jpg') or f.endswith('.jpeg')]
             for i,image_file in enumerate(imgfiles):
